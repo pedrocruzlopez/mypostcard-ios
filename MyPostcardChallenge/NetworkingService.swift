@@ -17,7 +17,7 @@ enum APIError: Error{
 class NetworkingService {
     
     let resourceURL: URL
-    let baseURL = "https://www.mypostcard.com/mobile/login.php?json"
+    let baseURL = "https://www.mypostcard.com/"
     
     init() {
         guard let resourceURL = URL(string: baseURL ) else { fatalError() }
@@ -27,7 +27,8 @@ class NetworkingService {
     func login (_ credentials: Message, completion: @escaping(Result<Response, Error>) -> Void){
     
         do{
-            var urlRequest = URLRequest(url: resourceURL)
+            guard let resURL = URL(string: baseURL+"mobile/login.php?json") else { fatalError()}
+            var urlRequest = URLRequest(url: resURL)
             urlRequest.httpMethod = "POST"
             urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             
@@ -57,5 +58,52 @@ class NetworkingService {
         }
         
     }
+    
+    func request(
+            endpoint: String,
+            type: String,
+            params: [String],
+            completion: @escaping (Result<HTTPGenericResponse, Error>) -> Void){
+        
+        do{
+            guard let resURL = URL(string: baseURL+endpoint) else { fatalError()}
+            var urlRequest = URLRequest(url: resURL)
+            urlRequest.httpMethod = type
+            
+            
+            let dataTask = URLSession.shared.dataTask(with: urlRequest){ data, response, _ in
+                
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200, let responseData = data else {
+                    completion(.failure(APIError.responseProblem))
+                    return
+                }
+                do {
+                    
+                    print(responseData);
+                    let messageData = HTTPGenericResponse(success: true, message: "Good, good", data: responseData)
+                    completion(.success(messageData))
+                }
+                
+            }
+            dataTask.resume()
+            
+        }
+    
+    }
+    
+    func getAvatars(completion: @escaping (Result<HTTPGenericResponse, Error>) -> Void){
+        
+        let body = [String]()
+        request(endpoint: "avatars.php", type: "GET", params: body) { result in
+            switch(result){
+            case .failure(let error):
+                completion(.failure(APIError.responseProblem))
+            case .success(let response):
+                completion(.success(response))
+            }
+        }
+    }
+        
+    
     
 }

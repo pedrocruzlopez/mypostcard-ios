@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userNameTextField.text = "technik@mypostcard.com"
+        passwordTextField.text = "MyCodeChal19"
         // Do any additional setup after loading the view.
     }
 
@@ -32,7 +34,12 @@ class ViewController: UIViewController {
                     self.present(alert, animated: true)
                 }
             case .success(let message):
-                print(message)
+                DispatchQueue.main.async {
+                    let vc = self.storyboard?.instantiateViewController(identifier: "secondViewController") as! TableViewController
+                    self.present(vc, animated: true) {
+                        print("finish")
+                    }
+                }
                 
             }
         }
