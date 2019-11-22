@@ -13,6 +13,9 @@
 		CE9F916F2386712F00DB830F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F916E2386712F00DB830F /* TableViewController.swift */; };
 		CE9F917123877C3C00DB830F /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F917023877C3C00DB830F /* TableViewCell.swift */; };
 		CE9F91762387B3B600DB830F /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F91752387B3B500DB830F /* ModalViewController.swift */; };
+		CE9F917823883D2A00DB830F /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F917723883D2A00DB830F /* Session.swift */; };
+		CE9F917A23884CE100DB830F /* AddressTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F917923884CE100DB830F /* AddressTableViewController.swift */; };
+		CE9F917C2388575A00DB830F /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F917B2388575A00DB830F /* AddressTableViewCell.swift */; };
 		CEF6B6152384E6E4007D1E75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF6B6142384E6E4007D1E75 /* AppDelegate.swift */; };
 		CEF6B6172384E6E4007D1E75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF6B6162384E6E4007D1E75 /* SceneDelegate.swift */; };
 		CEF6B6192384E6E4007D1E75 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF6B6182384E6E4007D1E75 /* ViewController.swift */; };
@@ -31,6 +34,9 @@
 		CE9F916E2386712F00DB830F /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		CE9F917023877C3C00DB830F /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		CE9F91752387B3B500DB830F /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		CE9F917723883D2A00DB830F /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		CE9F917923884CE100DB830F /* AddressTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTableViewController.swift; sourceTree = "<group>"; };
+		CE9F917B2388575A00DB830F /* AddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
 		CEF6B6112384E6E4007D1E75 /* MyPostcardChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPostcardChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF6B6142384E6E4007D1E75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEF6B6162384E6E4007D1E75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +104,9 @@
 				CE9F916E2386712F00DB830F /* TableViewController.swift */,
 				CE9F917023877C3C00DB830F /* TableViewCell.swift */,
 				CE9F91752387B3B500DB830F /* ModalViewController.swift */,
+				CE9F917723883D2A00DB830F /* Session.swift */,
+				CE9F917923884CE100DB830F /* AddressTableViewController.swift */,
+				CE9F917B2388575A00DB830F /* AddressTableViewCell.swift */,
 			);
 			path = MyPostcardChallenge;
 			sourceTree = "<group>";
@@ -180,10 +189,13 @@
 				CEF6B6172384E6E4007D1E75 /* SceneDelegate.swift in Sources */,
 				CE9F916F2386712F00DB830F /* TableViewController.swift in Sources */,
 				CE9F916923864C2500DB830F /* String+FormUrlencoded.swift in Sources */,
+				CE9F917823883D2A00DB830F /* Session.swift in Sources */,
 				CEF6B62F2385198F007D1E75 /* Message.swift in Sources */,
 				CE9F91762387B3B600DB830F /* ModalViewController.swift in Sources */,
 				CE9F917123877C3C00DB830F /* TableViewCell.swift in Sources */,
 				CEF6B6292384FBFB007D1E75 /* NetworkingService.swift in Sources */,
+				CE9F917C2388575A00DB830F /* AddressTableViewCell.swift in Sources */,
+				CE9F917A23884CE100DB830F /* AddressTableViewController.swift in Sources */,
 				CEF6B62B238504B0007D1E75 /* Response.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

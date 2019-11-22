@@ -16,7 +16,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         userNameTextField.text = "technik@mypostcard.com"
         passwordTextField.text = "MyCodeChal19"
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func loginAction(_ sender: Any) {
@@ -26,20 +25,40 @@ class ViewController: UIViewController {
             switch result {
             case .failure( _):
                 self.showAlert("Error", "The credentials are not valid")
-            case .success( _):
+            case .success( let loginResponse):
                 
                 networkService.getAvatars { (result) in
                     switch (result) {
                     case .failure( _):
                         self.showAlert("Error", "Something went wrong, please try again later")
-                    case .success(let response):
+                    case .success(let responseAvatars):
                         
                         DispatchQueue.main.async {
-                            let vc = self.storyboard?.instantiateViewController(identifier: "secondViewController") as! TableViewController
-                            vc.data = response.data
-                            self.present(vc, animated: true) {
-                                print("finish")
+                            
+                            Session.shared.setSessionToken(loginResponse.jwt)
+                            
+                            networkService.getAddresses { (result) in
+                                switch(result){
+                                case .failure(_):
+                                    self.showAlert("Error", "Something went wrong, please try again later")
+                                case .success(let responseAddresses):
+                                    
+                                    DispatchQueue.main.async {
+                                        let tab = self.storyboard?.instantiateViewController(identifier: "tabBar") as! UITabBarController
+                                        tab.isModalInPresentation = true
+                                        let vc = tab.viewControllers?[0] as! TableViewController
+                                        vc.data = responseAvatars.data
+                                        let avc = tab.viewControllers?[1] as! AddressTableViewController
+                                        avc.data = responseAddresses.data
+                                        self.present(tab, animated: true, completion: nil)
+                                    }
+                                    
+                                
+                                }
                             }
+                            
+
+                            
                         }
                         
                     }

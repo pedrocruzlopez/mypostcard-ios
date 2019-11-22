@@ -63,6 +63,7 @@ class NetworkingService {
             endpoint: String,
             type: String,
             params: [String],
+            headers : [String:String],
             completion: @escaping (Result<HTTPGenericResponse, Error>) -> Void){
         
         do{
@@ -70,10 +71,16 @@ class NetworkingService {
             var urlRequest = URLRequest(url: resURL)
             urlRequest.httpMethod = type
             
+            if(headers.count != 0){
+                for (key, value) in headers {
+                    urlRequest.setValue(value, forHTTPHeaderField: key)
+                }
+            }
             
             let dataTask = URLSession.shared.dataTask(with: urlRequest){ data, response, _ in
                 
                 guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200, let responseData = data else {
+                    print("error request")
                     completion(.failure(APIError.responseProblem))
                     return
                 }
@@ -94,13 +101,35 @@ class NetworkingService {
     func getAvatars(completion: @escaping (Result<HTTPGenericResponse, Error>) -> Void){
         
         let body = [String]()
-        request(endpoint: "avatars.php", type: "GET", params: body) { result in
+        let headers = [String:String]()
+        request(endpoint: "avatars.php", type: "GET", params: body, headers: headers) { result in
             switch(result){
-            case .failure(let error):
+            case .failure(_):
                 completion(.failure(APIError.responseProblem))
             case .success(let response):
                 completion(.success(response))
             }
+        }
+    }
+    
+    func getAddresses(completion: @escaping (Result<HTTPGenericResponse, Error>) -> Void){
+        let body = [String]()
+        let sessionToken = Session.shared.getSessionToken()
+        if(Session.shared.getSessionToken() != ""){
+            let headers:[String:String] = ["Myp-Auth": "Bearer "+sessionToken]
+            request(endpoint: "mobile/sync_contacts.php?json=1&jwt=1&action=get_addressbook",
+                    type: "POST",
+                    params: body,
+                    headers: headers) { (result) in
+                        switch(result){
+                        case .failure(_):
+                            completion(.failure(APIError.responseProblem))
+                        case .success(let response):
+                            completion(.success(response))
+                        }
+            }
+        } else {
+            completion(.failure(APIError.responseProblem))
         }
     }
     
