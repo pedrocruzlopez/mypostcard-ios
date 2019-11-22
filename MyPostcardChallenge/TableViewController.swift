@@ -11,6 +11,7 @@ import UIKit
 struct Avatar {
     var name: String
     var imageURL: String
+    var imageData: UIImage?
 }
 
 class TableViewController: UITableViewController, XMLParserDelegate {
@@ -20,6 +21,7 @@ class TableViewController: UITableViewController, XMLParserDelegate {
     var elementName: String = String()
     var name = String()
     var imageURL = String()
+    var networkService = NetworkingService()
     
 
     override func viewDidLoad() {
@@ -32,21 +34,19 @@ class TableViewController: UITableViewController, XMLParserDelegate {
             case .failure(let error):
                 print(error)
             case .success(let response):
-                print("asdfasdfaf \(response.data)")
                 let parser = XMLParser(data: response.data)
                 parser.delegate = self
                 parser.parse()
                 
-                
-                
             }
         }
+        self.isModalInPresentation = true;
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -64,14 +64,55 @@ class TableViewController: UITableViewController, XMLParserDelegate {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
 
-        let avatar = avatars[indexPath.row]
-               
-        cell.textLabel?.text = avatar.name
-        cell.detailTextLabel?.text = avatar.imageURL
+        var avatar = avatars[indexPath.row]
+        cell.avatarTitle.text = avatar.name
+        cell.avatarImage.image = nil
+        
+        
+        if(avatar.imageData == nil){
+            DispatchQueue.global(qos: .background).async {
+                let url = URL(string: avatar.imageURL)!
+                self.networkService.getImage(from: url) { data, response, error in
+                    guard let data = data, error == nil else {
+                        print("Error occured")
+                        return
+                    }
+                    print("Download finished")
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: data)
+                        avatar.imageData = image!
+                        self.avatars[indexPath.row] = avatar
+                        cell.avatarImage.image = image
+                    }
+                }
+            }
+        } else {
+            cell.avatarImage.image = avatar.imageData
+        }
 
         return cell
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let avatar = avatars[indexPath.row]
+        print(avatar.name)
+        if(indexPath.row == 2){
+            let alert = UIAlertController(title: avatar.name, message: avatar.name, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+             self.present(alert, animated: true)
+        } else {
+            
+            
+            
+        }
+        
     }
     
 
@@ -133,7 +174,7 @@ class TableViewController: UITableViewController, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "avatar" {
-            let avatar = Avatar(name: name, imageURL: imageURL)
+            let avatar = Avatar(name: name, imageURL: imageURL, imageData: nil)
             avatars.append(avatar)
         }
     }
