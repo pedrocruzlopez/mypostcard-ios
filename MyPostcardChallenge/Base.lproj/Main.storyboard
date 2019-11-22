@@ -22,7 +22,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Kve-fK-5yh">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HfV-Ea-d5v">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mypostcard-logo" translatesAutoresizingMaskIntoConstraints="NO" id="HfV-Ea-d5v">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="H7W-Es-QVj"/>
@@ -54,7 +54,7 @@
                                                             <constraint firstAttribute="height" constant="50" id="Ghc-Cc-QzN"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" textContentType="password"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -77,19 +77,32 @@
                                     </stackView>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="QB0-26-1eg">
                                         <rect key="frame" x="0.0" y="413.5" width="414" height="376"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mypostcard-footer" translatesAutoresizingMaskIntoConstraints="NO" id="xr2-QE-0vA">
+                                                <rect key="frame" x="0.0" y="80" width="414" height="200"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="200" id="PZe-5y-xEL"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="xr2-QE-0vA" firstAttribute="leading" secondItem="QB0-26-1eg" secondAttribute="leading" id="2y4-sR-aS1"/>
+                                            <constraint firstAttribute="trailing" secondItem="xr2-QE-0vA" secondAttribute="trailing" id="eFb-DI-Uqs"/>
+                                            <constraint firstItem="xr2-QE-0vA" firstAttribute="top" secondItem="QB0-26-1eg" secondAttribute="top" constant="80" id="yXu-sK-TlX"/>
+                                        </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="68" translatesAutoresizingMaskIntoConstraints="NO" id="LHF-bS-ckn">
                                         <rect key="frame" x="0.0" y="797.5" width="414" height="20.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lc1-co-xb7">
-                                                <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lc1-co-xb7">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pqj-9l-H1h">
-                                                <rect key="frame" x="110" y="0.0" width="304" height="20.5"/>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pqj-9l-H1h">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
                                                 <state key="normal" title="Button"/>
                                             </button>
                                         </subviews>
@@ -110,6 +123,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="bEQ-Vs-odw" id="bWA-8d-056"/>
                         <outlet property="passwordTextField" destination="yDf-f2-4xR" id="XA2-ge-TBM"/>
                         <outlet property="userNameTextField" destination="m5L-4G-C5C" id="i6Y-mx-2q9"/>
                     </connections>
@@ -118,10 +132,10 @@
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
         </scene>
-        <!--Item-->
+        <!--View 2-->
         <scene sceneID="F6w-NL-Y4C">
             <objects>
-                <tableViewController storyboardIdentifier="secondViewController" id="r4n-Hz-Lom" customClass="TableViewController" customModule="MyPostcardChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="secondViewController" title="View 2" id="r4n-Hz-Lom" customClass="TableViewController" customModule="MyPostcardChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DcC-Gs-BKC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -174,17 +188,17 @@
                             <outlet property="delegate" destination="r4n-Hz-Lom" id="iBj-ON-IhI"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="uaA-hi-Mz9"/>
+                    <tabBarItem key="tabBarItem" title="View 2" id="uaA-hi-Mz9"/>
                     <navigationItem key="navigationItem" id="TAP-xk-VrO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BDE-uf-hNG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3926.0869565217395" y="132.58928571428572"/>
         </scene>
-        <!--Item-->
+        <!--View 3-->
         <scene sceneID="jLd-v8-kfD">
             <objects>
-                <tableViewController storyboardIdentifier="addressTableView" id="EPT-6S-DDB" customClass="AddressTableViewController" customModule="MyPostcardChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="addressTableView" title="View 3" id="EPT-6S-DDB" customClass="AddressTableViewController" customModule="MyPostcardChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kgL-00-ic1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -264,7 +278,7 @@
                             <outlet property="delegate" destination="EPT-6S-DDB" id="aOZ-3b-aWW"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="Bjz-uo-w0Y"/>
+                    <tabBarItem key="tabBarItem" title="View 3" id="Bjz-uo-w0Y"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KwH-lB-pUE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -330,5 +344,7 @@
     </scenes>
     <resources>
         <image name="clear" catalog="system" width="64" height="56"/>
+        <image name="mypostcard-footer" width="384" height="175.5"/>
+        <image name="mypostcard-logo" width="250" height="150"/>
     </resources>
 </document>

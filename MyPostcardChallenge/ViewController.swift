@@ -12,10 +12,13 @@ class ViewController: UIViewController {
     @IBOutlet var userNameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
+    @IBOutlet var loginButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         userNameTextField.text = "technik@mypostcard.com"
         passwordTextField.text = "MyCodeChal19"
+        loginButton.layer.cornerRadius = 15
+        loginButton.clipsToBounds = true
     }
 
     @IBAction func loginAction(_ sender: Any) {
