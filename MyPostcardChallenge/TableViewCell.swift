@@ -17,6 +17,14 @@ class TableViewCell: UITableViewCell {
     @IBOutlet var avatarUsed: UILabel!
     
     
+    var reuse: Int
+    
+    
+    required init?(coder: NSCoder) {
+        self.reuse = 0;
+        super.init(coder: coder)
+        
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

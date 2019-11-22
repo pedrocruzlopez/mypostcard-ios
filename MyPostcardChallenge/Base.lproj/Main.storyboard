@@ -180,20 +180,44 @@
             </objects>
             <point key="canvasLocation" x="3015.9420289855075" y="132.58928571428572"/>
         </scene>
-        <!--View Controller-->
+        <!--Modal View Controller-->
         <scene sceneID="Sa8-jj-DTQ">
             <objects>
-                <viewController id="ByV-8G-0ba" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="modalView" id="ByV-8G-0ba" customClass="ModalViewController" customModule="MyPostcardChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dXg-GC-ib5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVr-Wb-ErP">
+                                <rect key="frame" x="377" y="44" width="37" height="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="clear" catalog="system"/>
+                                <connections>
+                                    <action selector="close:" destination="ByV-8G-0ba" eventType="touchUpInside" id="4pA-37-bY3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MNf-ld-FIE">
+                                <rect key="frame" x="20" y="351" width="374" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="29"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="gVr-Wb-ErP" firstAttribute="top" secondItem="XWZ-uE-PYB" secondAttribute="top" id="6ir-zZ-s8v"/>
+                            <constraint firstItem="XWZ-uE-PYB" firstAttribute="trailing" secondItem="gVr-Wb-ErP" secondAttribute="trailing" id="T8I-HE-rjH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="XWZ-uE-PYB"/>
                     </view>
+                    <connections>
+                        <outlet property="avatarLabel" destination="MNf-ld-FIE" id="23G-GV-v0Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9VB-zv-YmX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3967" y="127"/>
+            <point key="canvasLocation" x="3966.666666666667" y="126.5625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TF2-nf-okJ">
@@ -214,4 +238,7 @@
             <point key="canvasLocation" x="2105.7971014492755" y="132.58928571428572"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="clear" catalog="system" width="64" height="56"/>
+    </resources>
 </document>

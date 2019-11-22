@@ -25,25 +25,41 @@ class ViewController: UIViewController {
         networkService.login(message) { result in
             switch result {
             case .failure( _):
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Error", message: "The credentials are not valid", preferredStyle: .alert)
-
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        
-
-                    self.present(alert, animated: true)
-                }
-            case .success(let message):
-                DispatchQueue.main.async {
-                    let vc = self.storyboard?.instantiateViewController(identifier: "secondViewController") as! TableViewController
-                    self.present(vc, animated: true) {
-                        print("finish")
+                self.showAlert("Error", "The credentials are not valid")
+            case .success( _):
+                
+                networkService.getAvatars { (result) in
+                    switch (result) {
+                    case .failure( _):
+                        self.showAlert("Error", "Something went wrong, please try again later")
+                    case .success(let response):
+                        
+                        DispatchQueue.main.async {
+                            let vc = self.storyboard?.instantiateViewController(identifier: "secondViewController") as! TableViewController
+                            vc.data = response.data
+                            self.present(vc, animated: true) {
+                                print("finish")
+                            }
+                        }
+                        
                     }
                 }
+                
+                
+                
                 
             }
         }
         
+    }
+    
+    func showAlert(_ title: String, _ messsage: String){
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: messsage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+            self.present(alert, animated: true)
+        }
     }
     
 }

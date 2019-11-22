@@ -23,23 +23,17 @@ class TableViewController: UITableViewController, XMLParserDelegate {
     var imageURL = String()
     var networkService = NetworkingService()
     
-
+    var data: Data = Data()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let networkService = NetworkingService()
+
         
-        networkService.getAvatars { (result) in
-            switch (result) {
-            case .failure(let error):
-                print(error)
-            case .success(let response):
-                let parser = XMLParser(data: response.data)
-                parser.delegate = self
-                parser.parse()
-                
-            }
-        }
+        let parser = XMLParser(data: data)
+        parser.delegate = self
+        parser.parse()
+        
         self.isModalInPresentation = true;
 
         // Uncomment the following line to preserve selection between presentations
@@ -69,6 +63,14 @@ class TableViewController: UITableViewController, XMLParserDelegate {
         var avatar = avatars[indexPath.row]
         cell.avatarTitle.text = avatar.name
         cell.avatarImage.image = nil
+        cell.avatarUsed.text = "\(cell.reuse)"
+        if(cell.reuse == 0){
+            
+            cell.reuse = 1
+            
+        } else {
+            cell.reuse += 1
+        }
         
         
         if(avatar.imageData == nil){
@@ -79,7 +81,6 @@ class TableViewController: UITableViewController, XMLParserDelegate {
                         print("Error occured")
                         return
                     }
-                    print("Download finished")
                     DispatchQueue.main.async {
                         let image = UIImage(data: data)
                         avatar.imageData = image!
@@ -109,7 +110,12 @@ class TableViewController: UITableViewController, XMLParserDelegate {
              self.present(alert, animated: true)
         } else {
             
-            
+            let vc = self.storyboard?.instantiateViewController(identifier: "modalView") as! ModalViewController
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.avatarTitle = avatar.name
+            self.present(vc, animated: true) {
+                
+            }
             
         }
         
